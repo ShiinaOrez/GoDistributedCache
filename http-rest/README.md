@@ -1,5 +1,7 @@
 ## HTTP-REST Cache Service
 
+[![Build Status](https://travis-ci.com/ShiinaOrez/GoDistributedCache.svg?branch=master)](https://travis-ci.com/ShiinaOrez/GoDistributedCache)
+
 ------
 
 This part described a single point cache service: you can deploy it on your localhost or remote server, and use the **RESTful** request method such as **GET**, **PUT** and **DELETE** to ``get``, ``set`` and ``delete`` a key-value pair in cache.
