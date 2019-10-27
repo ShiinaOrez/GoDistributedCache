@@ -6,4 +6,4 @@ go:
   - 1.11.x
 
 script:
-  - make test
+  - go test -v -count=1  ./...
