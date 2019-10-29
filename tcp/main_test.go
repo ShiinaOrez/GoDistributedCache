@@ -41,10 +41,8 @@ func generateTestData() {
 }
 
 func TestTCP(t *testing.T) {
-	go func() {
-		cacheService := cache.NewService()
-		network.StartWithService(cacheService)
-	}()
+	cacheService := cache.NewService()
+	network.StartWithService(cacheService)
 
 	server, err := net.ResolveTCPAddr("tcp", "localhost"+constvar.Port)
 	if err != nil {

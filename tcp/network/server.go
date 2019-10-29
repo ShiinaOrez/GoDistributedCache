@@ -30,14 +30,16 @@ func (server *Server) Listen() {
 		log.Println(err)
 		return
 	}
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			log.Println(err)
-			continue
+	go func() {
+		for {
+			conn, err := listener.Accept()
+			if err != nil {
+				log.Println(err)
+				continue
+			}
+			go server.Process(conn)
 		}
-		go server.Process(conn)
-	}
+	}()
 }
 
 func (server *Server) Process(conn net.Conn) {
