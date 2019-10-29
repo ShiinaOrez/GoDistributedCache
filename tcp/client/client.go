@@ -1,21 +1,14 @@
 package main
 
 import (
-	"net"
 	"flag"
+	"fmt"
 	"log"
 	"os"
-	"fmt"
-	"strconv"
-	"bufio"
+	"net"
+	"github.com/ShiinaOrez/GoDistributedCache/tcp/client/tools"
 	"github.com/ShiinaOrez/GoDistributedCache/tcp/constvar"
 )
-
-func generateBytes(str string) []byte {
-	length := len(str)
-	lenStr := strconv.Itoa(length)
-	return append([]byte(lenStr+" "), []byte(str)...)
-}
 
 func main() {
 	host := flag.String("h", "localhost", "cache server address.")
@@ -36,33 +29,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	bytes := []byte{}
-	switch (*cmd) {
-	case "get": {
-		if (*key) == "" {
-			log.Println("Get must with key.")
-			os.Exit(1)
-		}
-		bytes = append([]byte{'G'}, generateBytes((*key))...)
-	}
-	case "set": {
-		if (*key) == "" || (*val) == "" {
-			log.Println("Set must with key and value.")
-			os.Exit(1)
-		}
-		bytes = append([]byte{'S'}, append(generateBytes((*key)), generateBytes(*val)...)...)
-	}
-	case "del": {
-		if (*key) == "" {
-			log.Println("Del must with key.")
-			os.Exit(1)
-		}
-		bytes = append([]byte{'G'}, generateBytes((*key))...)
-	}
-	}
-	conn.Write(bytes)
-	reader := bufio.NewReader(conn)
-	res, err := reader.ReadString(' ')
+	res, err := tools.Request(conn, (*host), (*cmd), (*key), (*val))
 	if err != nil {
 		log.Println("Error:", err)
 		os.Exit(1)

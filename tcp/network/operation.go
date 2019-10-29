@@ -2,6 +2,7 @@ package network
 
 import (
 	"bufio"
+	_ "log"
 )
 
 func (server *Server) GetFromReader(reader *bufio.Reader) ([]byte, error) {
@@ -9,6 +10,7 @@ func (server *Server) GetFromReader(reader *bufio.Reader) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+	// log.Println("Get:", key)
 	val, err := server.get(key)
 	if err != nil {
 		return nil, err
@@ -25,6 +27,7 @@ func (server *Server) SetFromReader(reader *bufio.Reader) error {
 	if err != nil {
 		return err
 	}
+	// log.Println("Set:", key, ":", string(val))
 	err = server.set(key, val)
 	if err != nil {
 		return err
@@ -37,6 +40,7 @@ func (server *Server) DelFromReader(reader *bufio.Reader) error {
 	if err != nil {
 		return err
 	}
+	// log.Println("Del:", key)
 	err = server.del(key)
 	if err != nil {
 		return err
