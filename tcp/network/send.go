@@ -1,14 +1,14 @@
 package network
 
 import (
-	"net"
 	"fmt"
+	"net"
 )
 
 func sendResponse(conn net.Conn, res []byte) error {
 	length := fmt.Sprintf("+%d ", len(res))
 	_, err := conn.Write(append([]byte(length), res...))
-    return err
+	return err
 }
 
 func sendError(conn net.Conn, err error) error {

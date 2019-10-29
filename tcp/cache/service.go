@@ -1,8 +1,8 @@
 package cache
 
 import (
-	"sync"
 	"errors"
+	"sync"
 )
 
 type Service struct {
@@ -11,8 +11,8 @@ type Service struct {
 }
 
 func NewService() *Service {
-	return &Service {
-		Map: make(map[string][]byte),
+	return &Service{
+		Map:    make(map[string][]byte),
 		Locker: new(sync.RWMutex),
 	}
 }
@@ -20,9 +20,9 @@ func NewService() *Service {
 func (service *Service) Get(key string) ([]byte, error) {
 	val, existed := service.Map[key]
 	if !existed {
-		return nil, errors.New("Key: "+key+", not found!")
+		return nil, errors.New("Key: " + key + ", not found!")
 	}
-    return val, nil
+	return val, nil
 }
 
 func (service *Service) Set(key string, val []byte) error {
@@ -36,11 +36,11 @@ func (service *Service) Set(key string, val []byte) error {
 func (service *Service) Del(key string) error {
 	_, existed := service.Map[key]
 	if !existed {
-		return errors.New("Key: "+key+", not found!")
+		return errors.New("Key: " + key + ", not found!")
 	}
 	service.Locker.Lock()
 	defer service.Locker.Unlock()
 
 	delete(service.Map, key)
 	return nil
-} 
+}

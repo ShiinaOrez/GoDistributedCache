@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
-	"os"
-	"net"
 	"github.com/ShiinaOrez/GoDistributedCache/tcp/client/tools"
 	"github.com/ShiinaOrez/GoDistributedCache/tcp/constvar"
+	"log"
+	"net"
+	"os"
 )
 
 func main() {

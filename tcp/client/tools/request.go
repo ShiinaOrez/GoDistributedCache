@@ -1,11 +1,11 @@
 package tools
 
 import (
+	"bufio"
 	_ "log"
 	"net"
 	"os"
 	"strconv"
-	"bufio"
 )
 
 func generateBytes(str string) []byte {
@@ -17,27 +17,30 @@ func generateBytes(str string) []byte {
 func Request(conn net.Conn, host, cmd, key, val string) (string, error) {
 	bytes := []byte{}
 	switch cmd {
-	case "get": {
-		if key == "" {
-			// log.Println("Get must with key.")
-			os.Exit(1)
+	case "get":
+		{
+			if key == "" {
+				// log.Println("Get must with key.")
+				os.Exit(1)
+			}
+			bytes = append([]byte{'G'}, generateBytes(key)...)
 		}
-		bytes = append([]byte{'G'}, generateBytes(key)...)
-	}
-	case "set": {
-		if key == "" || val == "" {
-			// log.Println("Set must with key and value.")
-			os.Exit(1)
+	case "set":
+		{
+			if key == "" || val == "" {
+				// log.Println("Set must with key and value.")
+				os.Exit(1)
+			}
+			bytes = append([]byte{'S'}, append(generateBytes(key), generateBytes(val)...)...)
 		}
-		bytes = append([]byte{'S'}, append(generateBytes(key), generateBytes(val)...)...)
-	}
-	case "del": {
-		if key == "" {
-			// log.Println("Del must with key.")
-			os.Exit(1)
+	case "del":
+		{
+			if key == "" {
+				// log.Println("Del must with key.")
+				os.Exit(1)
+			}
+			bytes = append([]byte{'D'}, generateBytes(key)...)
 		}
-		bytes = append([]byte{'D'}, generateBytes(key)...)
-	}
 	}
 	conn.Write(bytes)
 	reader := bufio.NewReader(conn)

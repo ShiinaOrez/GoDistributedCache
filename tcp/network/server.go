@@ -1,13 +1,13 @@
 package network
 
 import (
+	"bufio"
+	"fmt"
 	"github.com/ShiinaOrez/GoDistributedCache/tcp/cache"
 	"github.com/ShiinaOrez/GoDistributedCache/tcp/constvar"
-	"net"
-	"fmt"
-	"log"
-	"bufio"
 	"io"
+	"log"
+	"net"
 )
 
 type Server struct {
@@ -16,9 +16,9 @@ type Server struct {
 }
 
 func StartWithService(service *cache.Service) {
-    server := &Server {
+	server := &Server{
 		Cache: service,
-		Port: constvar.Port,
+		Port:  constvar.Port,
 	}
 	server.Listen()
 }
@@ -44,7 +44,7 @@ func (server *Server) Listen() {
 
 func (server *Server) Process(conn net.Conn) {
 	defer conn.Close()
-	
+
 	reader := bufio.NewReader(conn)
 	for {
 		op, err := reader.ReadByte()
@@ -62,10 +62,11 @@ func (server *Server) Process(conn net.Conn) {
 			err = server.SetFromReader(reader)
 		case 'D':
 			err = server.DelFromReader(reader)
-		default: {
-			log.Println("Close connection cause of invalid operation!")
-			return
-		}
+		default:
+			{
+				log.Println("Close connection cause of invalid operation!")
+				return
+			}
 		}
 		var sErr error = nil
 		if err != nil {

@@ -1,16 +1,16 @@
 package main
 
 import (
-	"math/rand"
-	"testing"
-	"time"
-	"net"
-	"log"
-	"os"
 	"github.com/ShiinaOrez/GoDistributedCache/tcp/cache"
+	"github.com/ShiinaOrez/GoDistributedCache/tcp/client/tools"
 	"github.com/ShiinaOrez/GoDistributedCache/tcp/constvar"
 	"github.com/ShiinaOrez/GoDistributedCache/tcp/network"
-	"github.com/ShiinaOrez/GoDistributedCache/tcp/client/tools"
+	"log"
+	"math/rand"
+	"net"
+	"os"
+	"testing"
+	"time"
 )
 
 type pair struct {

@@ -15,7 +15,7 @@ func (server *Server) GetFromReader(reader *bufio.Reader) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-    return val, nil
+	return val, nil
 }
 
 func (server *Server) SetFromReader(reader *bufio.Reader) error {
@@ -32,7 +32,7 @@ func (server *Server) SetFromReader(reader *bufio.Reader) error {
 	if err != nil {
 		return err
 	}
-    return nil
+	return nil
 }
 
 func (server *Server) DelFromReader(reader *bufio.Reader) error {
@@ -45,7 +45,7 @@ func (server *Server) DelFromReader(reader *bufio.Reader) error {
 	if err != nil {
 		return err
 	}
-    return nil
+	return nil
 }
 
 func (server *Server) get(key string) ([]byte, error) {

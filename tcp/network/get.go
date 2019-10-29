@@ -2,9 +2,9 @@ package network
 
 import (
 	"bufio"
+	"io"
 	"strconv"
 	"strings"
-	"io"
 )
 
 func getKey(reader *bufio.Reader) (string, error) {
